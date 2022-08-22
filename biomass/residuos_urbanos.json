@@ -1,0 +1,11 @@
+{
+	"nome_biomassa": "Resíduos orgânicos urbanos (municípios)",
+	"tipo_biomassa": "Resíduos",
+	"unidade": "ton",
+	"tipo_regiao": "mun",
+	"produto_derivado": "",
+	"conversao_derivado": "",
+	"conversao_gas": "",
+	"fonte": "ABRELPE",
+	"norm": "log"
+}

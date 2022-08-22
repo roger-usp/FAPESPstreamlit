@@ -1,0 +1,10 @@
+{
+	"nome_biomassa": "Resíduos orgânicos urbanos (mesorregiões)",
+	"tipo_biomassa": "Resíduos",
+	"unidade": "ton",
+	"tipo_regiao": "meso",
+	"produto_derivado": "",
+	"conversao_derivado": "",
+	"conversao_gas": "",
+	"fonte": "ABRELPE"
+}

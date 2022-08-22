@@ -1,0 +1,11 @@
+{
+	"nome_biomassa": "Amendoim",
+	"tipo_biomassa": "Oleaginosas",
+	"unidade": "ton",
+	"tipo_regiao": "micro",
+	"produto_derivado": "",
+	"conversao_derivado": "",
+	"conversao_gas": "",
+	"fonte": "PAM - IBGE",
+	"norm": "linear"
+}
