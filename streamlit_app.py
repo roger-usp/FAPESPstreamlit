@@ -171,8 +171,13 @@ def main():
 	get_biomass_prefix()
 	create_biomass_obj()
 
+	logo_c, title_c = st.columns((1,2))
+	with logo_c:
+		st.image("copaenergialogo.png")
+	with title_c:
+		st.title("Distribuição de biomassa no Brasil")
 
-
+	st.markdown("---")
 
 	widgets_c, fig_c, legend_c = st.columns((1,2,2))
 	with widgets_c:
