@@ -177,7 +177,7 @@ def main():
 	with title_c:
 		st.title("Distribuição de biomassa no Brasil")
 	with logo_poli:
-		st.image("logopoli.png")
+		st.image("logopoli.png", width=200)
 
 	st.markdown("---")
 
