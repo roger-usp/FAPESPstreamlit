@@ -201,6 +201,8 @@ def main():
 
 	with legend_c:
 		create_legend()
-
+	
+	st.write(f"Fonte: {sst["biomass_obj"].source}")
+	
 if __name__ == "__main__":
 	main()
