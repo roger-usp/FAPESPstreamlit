@@ -1,7 +1,7 @@
 {
 	"nome_biomassa": "Resíduos orgânicos urbanos (mesorregiões)",
 	"tipo_biomassa": "Resíduos",
-	"unidade": "ton",
+	"unidade": "ton/ano",
 	"tipo_regiao": "meso",
 	"produto_derivado": "",
 	"conversao_derivado": "",
