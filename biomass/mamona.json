@@ -1,7 +1,7 @@
 {
 	"nome_biomassa": "Mamona",
 	"tipo_biomassa": "Oleaginosas",
-	"unidade": "ton",
+	"unidade": "ton/ano",
 	"tipo_regiao": "micro",
 	"produto_derivado": "",
 	"conversao_derivado": "",
