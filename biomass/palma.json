@@ -1,7 +1,7 @@
 {
     "nome_biomassa": "Palma em 2016",
     "tipo_biomassa": "Oleaginosas",
-    "unidade": "ton",
+    "unidade": "ton/ano",
     "tipo_regiao": "mun",
     "produto_derivado": "Óleo de palma",
     "conversao_derivado": 0.22,
