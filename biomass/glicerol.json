@@ -1,0 +1,11 @@
+{
+	"nome_biomassa": "Glicerol",
+	"tipo_biomassa": "Outros",
+	"unidade": "ton/ano",
+	"tipo_regiao": "uf",
+	"produto_derivado": "",
+	"conversao_derivado": "",
+	"conversao_gas": "",
+	"fonte": "Agência Nacional do Petróleo, Gás Natural e Biocombustíveis, 2021",
+	"norm": "linear"
+}
