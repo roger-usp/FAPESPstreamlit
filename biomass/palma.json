@@ -1,10 +1,10 @@
 {
-    "nome_biomassa": "Palma em 2016",
+    "nome_biomassa": "Palma",
     "tipo_biomassa": "Oleaginosas",
     "unidade": "ton/ano",
     "tipo_regiao": "mun",
     "produto_derivado": "Óleo de palma",
     "conversao_derivado": 0.22,
     "conversao_gas": "",
-    "fonte": "ABRAPALMA"
+    "fonte": "ABRAPALMA, 2016"
 }
