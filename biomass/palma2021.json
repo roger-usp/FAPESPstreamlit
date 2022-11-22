@@ -6,6 +6,6 @@
 	"produto_derivado": "",
 	"conversao_derivado": "",
 	"conversao_gas": "",
-	"fonte": "Instituto Brasileiro de Geografia e Estatística. Produção Agrícola Municipal, 2021. Disponível em: <https://www.ibge.gov.br/estatisticas/economicas/agricultura-e-pecuaria/9117-producao-agricola-municipal-culturas-temporarias-e-permanentes.html?=&t=resultados> Acesso em: 19/11/2022",
+	"fonte": "Instituto Brasileiro de Geografia e Estatística. Produção Agrícola Municipal, 2021.",
 	"norm": "linear"
 }
