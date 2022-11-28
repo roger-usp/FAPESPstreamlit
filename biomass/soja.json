@@ -6,6 +6,6 @@
 	"produto_derivado": "",
 	"conversao_derivado": "",
 	"conversao_gas": "",
-	"fonte": "PAM - IBGE",
-	"norm": "log"
+	"fonte": "Instituto Brasileiro de Geografia e Estatística. Produção Agrícola Municipal, 2020.",
+	"norm": "linear"
 }
