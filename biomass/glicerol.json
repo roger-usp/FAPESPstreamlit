@@ -7,5 +7,6 @@
 	"conversao_derivado": "",
 	"conversao_gas": "",
 	"fonte": "Agência Nacional do Petróleo, Gás Natural e Biocombustíveis, 2021",
-	"norm": "linear"
+	"norm": "linear",
+	"obs": "Considera-se que para cada 100 litros de biodiesel são produzidos 7 litros de glicerol bruto, com 50% de pureza."
 }
