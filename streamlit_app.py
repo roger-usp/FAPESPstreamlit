@@ -8,6 +8,7 @@ from support_sst import *
 
 import matplotlib.pyplot as plt
 import pandas as pd
+import io
 
 def init_sst():
 	# Support variables
@@ -69,7 +70,6 @@ def get_biomass_prefix():
 def create_biomass_obj():
 	sst["biomass_obj"] = BiomassMap(
 		fig=plt.figure(),
-		legend_fig=plt.figure(),
 		file_prefix=sst["selected_biomass_prefix"]
 	)
 
@@ -105,8 +105,6 @@ def create_static_unit_objs():
 		sst[f"static_unit_obj#{k}"] = StaticUnits(
 			fig=sst["biomass_obj"].fig,
 			ax=sst["biomass_obj"].ax,
-			legend_fig=sst["biomass_obj"].legend_fig,
-			legend_ax=sst["biomass_obj"].legend_ax,
 			df=fixed_df,
 			specs_dict=st.secrets["static_units"][k]["specs_dict"]
 		)
@@ -134,12 +132,12 @@ def create_dynamic_units_objs():
 		fixed_df.columns = fixed_df.iloc[0]
 		fixed_df = fixed_df.iloc[1:].reset_index(drop=True)
 
-
+		fig, ax = plt.subplots()
 		sst[f"dynamic_unit_obj#{k}"] = DynamicUnits(
 			fig=sst["biomass_obj"].fig,
 			ax=sst["biomass_obj"].ax,
-			legend_fig=sst["biomass_obj"].legend_fig,
-			legend_ax=sst["biomass_obj"].legend_ax,
+			legend_fig=fig,
+			legend_ax=ax,
 			df=fixed_df,
 			specs_dict=st.secrets["dynamic_units"][k]["specs_dict"]
 		)
@@ -154,9 +152,54 @@ def update_dynamic_unit_objs():
 
 def create_fig():
 	st.pyplot(sst["biomass_obj"].fig)
-def create_legend():
-	st.pyplot(sst["biomass_obj"].legend_fig)
 
+def create_legend():
+	units_list = [k for k in sst.keys() if k.startswith("static_unit_obj#") or k.startswith("dynamic_unit_obj#")]
+	fig, ax = plt.subplots()
+	ax.axis("off")
+
+	for unit in units_list:
+		marker = sst[unit].marker
+		unit_type = sst[unit].unit_type
+		try:
+			color = sst[unit].color
+		except:
+			color = "black"
+
+		ax.scatter(0,0, marker=marker, label=unit_type, color=color)
+
+	ax.legend(framealpha=1, loc="center")
+
+	legend_array = sst["biomass_obj"].fig_to_array(fig)
+	legend_array = sst["biomass_obj"].remove_white_spaces(legend_array)
+
+	st.image(legend_array)
+
+def create_columns():
+	units_list = [k for k in sst.keys() if k.startswith("dynamic_unit_obj#") or k == "biomass_obj"]
+	col_list = [1,2] + [1/len(units_list) for _ in range(len(units_list))]
+	col_list = st.columns(col_list)
+
+	# widgets column
+	with col_list[0]:
+		create_uf_selector()
+		update_biomass_obj_uf()
+
+		st.write("Selecione as unidades desejadas:")
+		create_static_unit_checkboxes()
+		create_dynamic_units_checkboxes()
+
+		create_legend()
+
+	# map (fig) column
+	with col_list[1]:
+		create_fig()
+
+	# All cbar legends
+	for unit_idx, unit in enumerate(units_list):
+		col_idx = unit_idx + 2  # 2 columns already created
+		with col_list[col_idx]:
+			st.image(sst[unit].cbar_array)
 
 def main():
 	st.set_page_config(
@@ -171,38 +214,27 @@ def main():
 	get_biomass_prefix()
 	create_biomass_obj()
 
-	logo_c, logo_poli, title_c = st.columns((1,1,2))
-	with logo_c:
-		st.image("copaenergialogo.png")
+	logos, title_c = st.columns((1, 2))
+	with logos:
+		st.image("logos.png")
 	with title_c:
 		st.title("Distribuição de biomassa no Brasil")
-	with logo_poli:
-		st.image("logopoli.png", width=200)
 
 	st.markdown("---")
 
-	widgets_c, fig_c, legend_c = st.columns((1,2,2))
-	with widgets_c:
-		create_uf_selector()
-		update_biomass_obj_uf()
 
-		st.write("Selecione as unidades desejadas:")
-		create_static_unit_checkboxes()
-		create_dynamic_units_checkboxes()
 
 	create_static_unit_objs()
 	update_static_unit_objs()
-
 	create_dynamic_units_objs()
 	update_dynamic_unit_objs()
 
-	with fig_c:
-		create_fig() 
 
-	with legend_c:
-		create_legend()
-	
+	create_columns()
+
+
 	st.write("Fonte:", sst["biomass_obj"].source)
-	
+	st.write("Observações:", sst["biomass_obj"].obs)
+	st.write("App criado por Roger Sampaio Bif")
 if __name__ == "__main__":
 	main()

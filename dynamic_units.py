@@ -2,6 +2,9 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
+import io
+from itertools import groupby
+from operator import itemgetter
 
 class DynamicUnits:
 	def __init__(self, fig, ax, legend_fig, legend_ax, df, specs_dict):
@@ -28,7 +31,10 @@ class DynamicUnits:
 		self.legend_ax = legend_ax
 		self.df = df
 		self.fix_df()
+
 		self.specs_dict = specs_dict
+		self.marker = specs_dict["marker"]
+		self.unit_type = specs_dict["tipo_unidade"]
 
 		self.cmap = matplotlib.cm.get_cmap(self.specs_dict["cmap"])
 		self.create_colorbar(n_divisions=5)
@@ -71,20 +77,85 @@ class DynamicUnits:
 		return boundaries
 
 
-	def create_colorbar(self, n_divisions=5):
-		self.norm = matplotlib.colors.BoundaryNorm(self.get_boundaries(n_divisions=n_divisions), self.cmap.N, extend='neither')
+	def create_colorbar(self, uf="Brasil", n_divisions=5):
+		self.norm = matplotlib.colors.BoundaryNorm(self.get_boundaries(uf=uf, n_divisions=n_divisions), self.cmap.N, extend='neither')
 		self.mappable = matplotlib.cm.ScalarMappable(norm=self.norm, cmap=self.cmap)
-		self.legend_fig.colorbar(
+		
+		fig, ax = plt.subplots()
+		ax.axis('off')
+		fig.colorbar(
 			self.mappable,
 			orientation='vertical',
 			use_gridspec=True,
-			ticklocation="left"
-		).set_label(f"{self.specs_dict['tipo_unidade']} ({self.specs_dict['unidade']})", labelpad=-75)
+		).set_label(f"{self.specs_dict['tipo_unidade']} ({self.specs_dict['unidade']})", labelpad=5)
+
+		cbar_array = self.fig_to_array(fig)
+		self.cbar_array = self.remove_white_spaces(cbar_array)
+
+
+	def fig_to_array(self, fig):
+		io_buf = io.BytesIO()
+		fig.savefig(io_buf, format='raw')
+		io_buf.seek(0)
+		img_arr = np.reshape(np.frombuffer(io_buf.getvalue(), dtype=np.uint8),
+                     newshape=(int(fig.bbox.bounds[3]), int(fig.bbox.bounds[2]), -1))
+		io_buf.close()
+		return np.array(img_arr)
+
+	def fix_list(self,lst):
+		lst = sorted(lst)
+		for i in range(len(lst)):
+			if lst[i] + 1 != lst[i+1]:
+				fim_comeco = i
+				break
+		lst = lst[::-1]
+		for i in range(len(lst)):
+			if lst[i] - 1 != lst[i+1]:
+				comeco_fim = len(lst) - i
+				break
+		lst = lst[::-1]
+		return lst[:fim_comeco+1] + lst[comeco_fim:]
+
+	def remove_white_spaces(self, img_arr):
+		# Remove horizontal white lines
+		hor_indexes = list()
+		for idx, line in enumerate(img_arr):
+			if self.white_line(line):
+				hor_indexes.append(idx)
+		hor_indexes = self.fix_list(hor_indexes)
+		img_arr = np.delete(img_arr, hor_indexes, 0)
+
+		# Remove vertical white lines
+		img_arr = np.transpose( img_arr, (1,0,2) )
+		ver_indexes = list()
+		for idx, line in enumerate(img_arr):
+			if self.white_line(line):
+				ver_indexes.append(idx)
+
+		ver_indexes = self.fix_list(ver_indexes)
+		img_arr = np.delete(img_arr, ver_indexes, 0)
+
+		img_arr = np.transpose( img_arr, (1,0,2) )
+		return img_arr
+ 
+
+
+	def white_line(self, line):
+		line = np.array(line)
+		len_line = len(line)
+		if np.array_equal( line , np.array([[255, 255, 255, 255] for _ in range(len(line))]) ):
+			return True
+
+		elif np.array_equal(line[:, 3] , [0 for _ in range(len(line))]):
+			return True
+
+		else:
+			return False
+
 
 
 	def update_colorbar(self, uf_selected):
-		self.norm = matplotlib.colors.BoundaryNorm(self.get_boundaries(uf_selected), self.cmap.N, extend='neither')
-		self.mappable.set_norm(self.norm)
+		self.create_colorbar(uf=uf_selected)
 
 	def create_units(self):
 		self.units_dict = dict()

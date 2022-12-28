@@ -10,10 +10,11 @@ json file:
 """
 import pandas as pd
 import matplotlib
+import matplotlib.pyplot as plt
 import json
 
 class StaticUnits:
-	def __init__(self, fig, ax, legend_fig, legend_ax, df, specs_dict):
+	def __init__(self, fig, ax, df, specs_dict):
 		"""
 		fig: matplotlib.figure.Figure
 		ax: matplotlib.axes.Axes
@@ -39,8 +40,6 @@ class StaticUnits:
 		self.path = "./static_units_files"
 		self.fig = fig
 		self.ax = ax
-		self.legend_fig = legend_fig
-		self.legend_ax = legend_ax
 		
 		self.unit_type = specs_dict["tipo_unidade"]
 		self.marker = specs_dict["marker"]
@@ -55,7 +54,7 @@ class StaticUnits:
 		self.df["lon"] = pd.to_numeric(self.df["lon"])
 
 		self.create_point_dict()
-		self.create_legend()
+
 
 
 	def create_point_dict(self):
@@ -68,10 +67,6 @@ class StaticUnits:
 				self.ax.scatter(row.lon, row.lat, color=self.color, marker=self.marker, zorder=2)
 			)
 
-
-	def create_legend(self):
-		self.legend_ax.scatter(0,0, color=self.color, marker=self.marker, label=self.unit_type,zorder=0)
-		self.legend_ax.legend(framealpha=1, loc="center")
 
 	def change_visibility(self, visible, uf="Brasil"):
 		for uf_name, point_list in self.point_dict.items():
