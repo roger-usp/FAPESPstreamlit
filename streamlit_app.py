@@ -25,7 +25,7 @@ def init_sst():
 		sst["selected_biomass_type"] = "Oleaginosas"
 
 	if "selected_biomass_name" not in sst:
-		sst["selected_biomass_name"] = "Algodão"
+		sst["selected_biomass_name"] = "Algodão herbáceo."
 
 	if "selected_biomass_name" in sst and sst["selected_biomass_name"] is None:
 		sst["selected_biomass_name"] = sorted(sst["biomass_types_dict"][sst["selected_biomass_type"]])[0]
