@@ -1,12 +1,12 @@
 {
-  "nome_biomassa": "Resíduos de Batata",
-  "tipo_biomassa": "Resíduos Agrícolas",
+  "nome_biomassa": "ResÃ­duos de Batata",
+  "tipo_biomassa": "ResÃ­duos AgrÃ­colas",
   "unidade": "ton/ano",
   "tipo_regiao": "mun",
   "produto_derivado": "",
   "conversao_derivado": "",
   "conversao_gas": "",
-  "fonte": "Instituto Brasileiro de Geografia e Estatística. Produção Agrícola Municipal, 2021.",
+  "fonte": "Instituto Brasileiro de Geografia e EstatÃ­stica. ProduÃ§Ã£o AgrÃ­cola Municipal, 2021.",
   "norm": "linear",
-  "obs": "Considera-se que os resíduos representam 36.11% da produção."
+  "obs": "Considera-se que os resÃ­duos representam 36.11% da produÃ§Ã£o."
 }
