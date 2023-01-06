@@ -1,5 +1,5 @@
 {
-  "nome_biomassa": "Cana",
+  "nome_biomassa": "Batata",
   "tipo_biomassa": "Resíduos Agrícolas",
   "unidade": "ton/ano",
   "tipo_regiao": "mun",
@@ -8,5 +8,5 @@
   "conversao_gas": "",
   "fonte": "Instituto Brasileiro de Geografia e Estatística. Produção Agrícola Municipal, 2021.",
   "norm": "linear",
-  "obs": "Considera-se que os resíduos representam 64.0% da produção."
+  "obs": "Considera-se que os resíduos representam 36.11% da produção."
 }
