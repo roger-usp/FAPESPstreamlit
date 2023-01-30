@@ -1,8 +1,8 @@
 {
- "nome_biomassa": "Girassol (em grão).",
+ "nome_biomassa": "Girassol (em grão)",
  "tipo_biomassa": "Oleaginosas",
  "unidade": "ton/ano",
- "tipo_regiao": "mun",
+ "tipo_regiao": "micro",
  "produto_derivado": "",
  "conversao_derivado": "",
  "conversao_gas": "",
